@@ -2,7 +2,6 @@
 
 A real-time, multi-asset financial dashboard tracking equities (via **yfinance**) and cryptocurrencies (via **ccxt**) side-by-side. Built with Streamlit + asyncio for a non-blocking, production-quality monitoring experience.
 
-> ⚠️ **Disclaimer:** This software is for **educational purposes only**. It is **not financial advice**. Do not use it to make trading decisions. Past performance does not guarantee future results.
 
 ## ✨ Features
 
@@ -72,6 +71,4 @@ make lint      # ruff
 make typecheck # mypy --strict
 ```
 
-## 📄 License
 
-MIT.
