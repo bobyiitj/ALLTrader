@@ -1,7 +1,8 @@
 # ALLTrader
 
-A real-time, multi-asset financial dashboard tracking equities (via **yfinance**) and cryptocurrencies (via **ccxt**) side-by-side. Built with Streamlit + asyncio for a non-blocking, production-quality monitoring experience.
+![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)
 
+A real-time, multi-asset financial dashboard tracking equities (via **yfinance**) and cryptocurrencies (via **ccxt**) side-by-side. Built with Streamlit + asyncio for a non-blocking, production-quality UI.
 
 ## ✨ Features
 
@@ -17,18 +18,17 @@ A real-time, multi-asset financial dashboard tracking equities (via **yfinance**
 ## 🛠 Install
 
 ```bash
-git clone ALLTrader
-cd pulsetrader
+git clone https://github.com/bobyiitj/ALLTrader.git
+cd ALLTrader
 python3.11 -m venv .venv && source .venv/bin/activate
 make install
 cp .env.example .env       # edit if you want
 make run
 ```
 
-
 ## 🏗 Architecture
 
-```
+```text
 ┌────────────────────────────────────────────────────────────┐
 │                       Streamlit (app.py)                    │
 │   metrics · chart · sidebar · activity log · alerts UI      │
@@ -52,12 +52,12 @@ make run
 └────────────────────────────────────────────────────────────┘
 ```
 
-The **tracker thread** runs an `asyncio` event loop independent of Streamlit's script re-execution model. Streamlit triggers a periodic re-render via `streamlit-autorefresh` and reads a thread-safe snapshot from the tracker — there is no shared mutable state crossing the boundary.
+The **tracker thread** runs an `asyncio` event loop independent of Streamlit's script re-execution model. Streamlit triggers a periodic re-render via `streamlit-autorefresh` and reads a thread-safe snapshot of the latest prices and signals.
 
 ## ⚠️ Known limitations
 
 - **yfinance rate limits**: Yahoo Finance throttles aggressive requests. The default 10s interval × 3 stocks is well within tolerance, but adding many tickers may trigger 429s.
-- **Market hours**: Equity prices are stale outside US trading hours (the dashboard will correctly mark them via the change-pct value remaining unchanged, not as "stale" — that flag is for fetch failures).
+- **Market hours**: Equity prices are stale outside US trading hours (the dashboard will correctly mark them via the change-pct value remaining unchanged, not as "stale" — that flag is for fetch errors).
 - **Crypto exchange access**: Binance is geo-blocked in some regions (US in particular). Set `CRYPTO_EXCHANGE=kraken` (or `coinbase`) in `.env` if needed.
 - **plyer on Linux**: requires `dbus`. On headless servers, OS notifications silently no-op; alerts still appear in the in-app activity log.
 - **Single-process state**: Restarting the app reloads alerts but loses in-memory price history.
@@ -69,5 +69,3 @@ make test      # pytest
 make lint      # ruff
 make typecheck # mypy --strict
 ```
-
-
