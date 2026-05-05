@@ -17,7 +17,7 @@ A real-time, multi-asset financial dashboard tracking equities (via **yfinance**
 ## 🛠 Install
 
 ```bash
-git clone <your-repo>
+git clone ALLTrader
 cd pulsetrader
 python3.11 -m venv .venv && source .venv/bin/activate
 make install
@@ -25,7 +25,6 @@ cp .env.example .env       # edit if you want
 make run
 ```
 
-Open http://localhost:8501.
 
 ## 🏗 Architecture
 
